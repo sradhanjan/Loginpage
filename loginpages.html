@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login page</title>
+</head>
+<style>
+*
+{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body
+{
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #373737;
+}
+form
+{
+	position: relative;
+	width: 300px;
+	border: 2px solid white;
+	padding: 40px;
+}
+input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid #ccc;
+  border-radius: .1875rem;
+  box-sizing: border-box;
+  display: block;
+  font-size: .875rem;
+  margin-bottom: 1rem;
+  padding: .275rem;
+  width: 100%;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+     -moz-appearance: checkbox;
+          appearance: checkbox;
+  display: inline-block;
+  width: auto;
+}
+
+input[type="password"] {
+  margin-bottom: .5rem;
+}
+
+input[type="submit"] {
+  background-color: #015294;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: .5rem 1rem;
+}
+
+label {
+  color: #666;
+  font-size: .875rem;
+}
+h3
+{
+	font-size: 30px;
+	font-family: arial;
+	text-decoration: underline;
+	color: #f9f9f9;
+	letter-spacing: 1px;
+	font-weight: 500;
+	text-align: center;
+}
+form label
+{
+	position: relative;
+	display: block;
+}
+form input
+{
+	margin: 10px 0;
+	width: 100%;
+	background-color: #292929;
+	color: #fff;
+	padding: 10px;
+	border-radius: 6px;
+	font-size: 18px;
+	border: none;
+	outline: none;
+}
+.emailText,
+.passText
+{
+	font-weight: 300;
+	font-style: italic;
+	font-size: 20px;
+	color: red;
+	padding: 5px;
+}
+label.valid .emailText,
+label.valid .passText
+{
+	color: green;
+}
+label.valid::before,
+label.invalid::before{
+	content: "";
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 18px;
+	right: 5px;
+	z-index: 100;
+}
+#rememberMe:hover
+{
+    background-color: white;
+    color: black;
+}
+
+</style>
+<body>
+<style type="text/css"></style>
+<form action="#0">
+	<h3>Enter Credentials</h3>
+<label class="emailBox valid">
+	<input type="email" id="email" placeholder="email">
+	<span class="emailText"></span>
+</label>
+
+<label class="passBox invalid">
+	<input type="password" id="password" placeholder="password">
+	<span class="passText"></span>
+</label>
+
+  <input type="checkbox" value="lsRememberMe" id="rememberMe"> 
+  <label for="rememberMe">Remember me</label>
+  <input type="submit" value="Login" onclick="lsRememberMe()">
+</form>
+<script>
+	const email = document.getElementById("email");
+	const password = document.getElementById("password");
+
+    email.addEventListener('input',()=>{
+    	const emailBox = document.querySelector('.emailBox');
+    	const emailText = document.querySelector('.emailText');
+    	const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    	if(email.value.match(emailPattern)){
+    		emailBox.classList.add('valid');
+    		emailBox.classList.remove('invalid');
+    		emailText.innerHTML = "your email id is valid";
+    	}else{
+    		emailBox.classList.add('invalid');
+    		emailBox.classList.remove('valid');
+    		emailText.innerHTML = "enter valid email id";
+    	}
+    });
+        password.addEventListener('input',()=>{
+    	const passBox = document.querySelector('.passBox');
+    	const passText = document.querySelector('.passText');
+    	const passPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+    	if(password.value.match(passPattern)){
+    		passBox.classList.add('valid');
+    		passBox.classList.remove('invalid');
+    		passText.innerHTML = "your password is valid";
+    	}else{
+    		passBox.classList.add('invalid');
+    		passBox.classList.remove('valid');
+    		passText.innerHTML = "min 8 characters including one uppercase,one lowercase,one number";
+    	}
+    });
+        	const rmCheck = document.getElementById("rememberMe"),
+            emailInput = document.getElementById("email");
+
+ if (localStorage.checkbox && localStorage.checkbox !== "") {
+  rmCheck.setAttribute("checked", "checked");
+  emailInput.value = localStorage.username;
+} else {
+  rmCheck.removeAttribute("checked");
+  emailInput.value = "";
+}
+
+function lsRememberMe() {
+  if (rmCheck.checked && emailInput.value !== "") {
+    localStorage.username = emailInput.value;
+    localStorage.checkbox = rmCheck.value;
+  } else {
+    localStorage.username = "";
+    localStorage.checkbox = "";
+  }
+
+}
+
+</script>
+</body>
+</html>
